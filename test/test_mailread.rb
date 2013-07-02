@@ -16,6 +16,7 @@ class MailTest < Test::Unit::TestCase
       f.puts "Subject: test for mailread gem"
       f.puts ''
       f.puts 'Hi you, this is a test for the mailread gem'
+      f.puts 'and this is a second line for the body'
     end
   end
 
@@ -44,9 +45,19 @@ class MailTest < Test::Unit::TestCase
     assert_equal m.header.count, 3
   end
 
-  def test_body
+  def test_body_first_line
     m = Mail.new("#{MAILBOX}/1")
-    assert_match(/^Hi .* gem$/, m.body.to_s)
+    assert_match(/^Hi .* gem$/, m.body[0])
+  end
+
+  def test_body_second_line
+    m = Mail.new("#{MAILBOX}/1")
+    assert_match(/^and .* body$/, m.body[1])
+  end
+
+  def test_body_count_lines
+    m = Mail.new("#{MAILBOX}/1")
+    assert_equal m.body.length, 2
   end
 
 end
