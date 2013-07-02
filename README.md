@@ -33,3 +33,8 @@ Public Instance Methods
 
     header()
     Return the headers as a Hash.
+
+Travis CI
+---------
+
+Added support.
